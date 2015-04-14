@@ -26,17 +26,39 @@
         <!--Tip Calculator-->
         <scene sceneID="eae-jB-o0l">
             <objects>
-                <viewController title="Tip Calculator" id="QjJ-gz-RH0" sceneMemberID="viewController">
+                <viewController title="Tip Calculator" id="QjJ-gz-RH0" customClass="TipViewController" customModule="TipCalculator" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c42-oC-jFh"/>
                         <viewControllerLayoutGuide type="bottom" id="D2a-f0-lVe"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="DJc-cR-HHO">
+                    <view key="view" contentMode="scaleToFill" id="DJc-cR-HHO" customClass="Tip">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bill Amount: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNi-nh-Ph6">
-                                <rect key="frame" x="105" y="92" width="98" height="21"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Bill Amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eDm-77-ZQU">
+                                <rect key="frame" x="261" y="130" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="billAmountChanged:" destination="QjJ-gz-RH0" eventType="editingDidEnd" id="fsD-t9-Bku"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tip %" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fSy-zC-ofo">
+                                <rect key="frame" x="261" y="178" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="tipPercentageChanged:" destination="QjJ-gz-RH0" eventType="editingDidEnd" id="Cm5-mX-N5c"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tip Amount: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nue-Na-Buo">
+                                <rect key="frame" x="265" y="234" width="99" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fo4-KS-dM6">
+                                <rect key="frame" x="279" y="273" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -45,6 +67,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="skH-uP-aPb"/>
+                    <connections>
+                        <outlet property="tip" destination="nue-Na-Buo" id="zhr-D0-wJZ"/>
+                        <outlet property="totalBill" destination="fo4-KS-dM6" id="gTN-he-guv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sWW-hX-YYk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
