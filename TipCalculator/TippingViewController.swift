@@ -9,11 +9,8 @@
 import UIKit
 
 class TippingViewController: UIViewController {
-    let defaults = NSUserDefaults.standardUserDefaults()
     var tipRate = 0.0
     var billAmount = 0.0
-    
-    let numberFormatter = NSNumberFormatter()
     
     @IBOutlet weak var billAmountField: UITextField!
     @IBOutlet weak var tipRateField: UITextField!
@@ -39,14 +36,23 @@ class TippingViewController: UIViewController {
     
     @IBAction func tipRateIncremented(sender: UIButton) {
         tipRate += 1.0
-        tipRateField.text = String(format: "%0.0f", tipRate)
-        updateUI()
+        updateTipField()
     }
     
     @IBAction func tipRateDecremented(sender: UIButton) {
         tipRate -= 1.0
+        updateTipField()
+    }
+    
+    private func updateTipField() {
         tipRateField.text = String(format: "%0.0f", tipRate)
         updateUI()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        billAmountField.becomeFirstResponder()
+        billAmountField.text = ""
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -56,6 +62,7 @@ class TippingViewController: UIViewController {
     }
     
     private func defaultTipRate() {
+        let defaults = NSUserDefaults.standardUserDefaults()
         let defaultTip = defaults.doubleForKey("defautTipPercentage")
         tipRateField.text = String(format: "%0.0f", defaultTip)
         tipRate = defaultTip
@@ -73,9 +80,5 @@ class TippingViewController: UIViewController {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
         return formatter.stringFromNumber(value)!
-    }
-    
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        self.view.endEditing(true)
     }
 }
