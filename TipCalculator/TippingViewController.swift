@@ -9,8 +9,14 @@
 import UIKit
 
 class TippingViewController: UIViewController {
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     var tipRate = 0.0
-    var billAmount = 0.0
+    var billAmount = 0.0 {
+        didSet {
+            defaults.setObject([billAmountField.text, NSDate()], forKey: "timedBillAmountData")
+        }
+    }
     
     @IBOutlet weak var billAmountField: UITextField!
     @IBOutlet weak var tipRateField: UITextField!
@@ -53,6 +59,14 @@ class TippingViewController: UIViewController {
         super.viewDidLoad()
         billAmountField.becomeFirstResponder()
         billAmountField.text = ""
+        
+        if let
+            storedBillAmount: AnyObject = defaults.objectForKey("timedBillAmountData"),
+            billUpdateTime = storedBillAmount.lastObject as? NSDate {
+                if NSDate.timeIntervalSinceReferenceDate() - billUpdateTime.timeIntervalSinceReferenceDate < 10 * 60 {
+                    billAmountField.text = storedBillAmount.firstObject as? String
+                }
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -62,7 +76,6 @@ class TippingViewController: UIViewController {
     }
     
     private func defaultTipRate() {
-        let defaults = NSUserDefaults.standardUserDefaults()
         let defaultTip = defaults.doubleForKey("defautTipPercentage")
         tipRateField.text = String(format: "%0.0f", defaultTip)
         tipRate = defaultTip
@@ -81,4 +94,5 @@ class TippingViewController: UIViewController {
         formatter.numberStyle = .CurrencyStyle
         return formatter.stringFromNumber(value)!
     }
+    
 }
